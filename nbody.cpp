@@ -1,3 +1,6 @@
+// Two-body gravitational orbit simulation
+// Numerical integration of Newton's equations of motion
+
 #include <iostream>
 #include <numbers>
 #include <cmath>
