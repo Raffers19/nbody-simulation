@@ -1,0 +1,12 @@
+# Compiled C++ files
+*.exe
+*.obj
+*.pdb
+
+# Build directories
+build/
+Debug/
+Release/
+
+# Simulation outputs
+output/
