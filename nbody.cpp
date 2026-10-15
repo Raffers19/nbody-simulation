@@ -1,3 +1,4 @@
+// Experimental branch: testing alternative implementations
 // Two-body gravitational orbit simulation
 // Numerical integration of Newton's equations of motion
 
