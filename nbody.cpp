@@ -1,7 +1,7 @@
 // Experimental branch: testing alternative implementations
 // Two-body gravitational orbit simulation
 // Numerical integration of Newton's equations of motion
-// Integration timestep: 0.001
+// Integration timestep is configurable
 
 #include <iostream>
 #include <numbers>
