@@ -4,10 +4,8 @@
 // Integration timestep is configurable
 
 #include <iostream>
-#include <numbers>
 #include <cmath>
 #include <vector>
-#include <random>
 #include "vec2d.hpp"
 #include "particle.hpp"
 #include "gravity.hpp"
@@ -55,14 +53,14 @@ int main()
 
         computeAccel(P, G);
 
-        double E0 = computeEnergy(P, G);
+        //double E0 = computeEnergy(P, G);
         
         for(int j=0; j<step; j++)
         {
             verletStep(P, dt, G);
         }
 
-        double E1 = computeEnergy(P, G);
+        //double E1 = computeEnergy(P, G);
 
         //exact trajectory
         double T = dt*step;
