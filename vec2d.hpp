@@ -97,14 +97,14 @@ struct vec2d
         return x * b.x + y * b.y;
     }
 
-    double norm_squared() const
+    double squaredLength() const
     {
         return x * x + y * y;
     }
 
     double norm() const
     {
-        return std::sqrt(norm_squared());
+        return std::sqrt(squaredLength());
     }
 
     // Scalar on the left
@@ -128,8 +128,4 @@ struct vec2d
         return {a / b.x, a / b.y};
     }
 
-    double squaredLength() const
-    {
-        return x*x + y*y;
-    }
 };
