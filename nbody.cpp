@@ -49,7 +49,7 @@ int main()
         P[1].vel.y = -(1/std::sqrt(2));
 
         double dt = init[n].x;
-        int step = init[n].y;
+        int step = static_cast<int>(init[n].y);
 
         computeAccel(P, G);
 
