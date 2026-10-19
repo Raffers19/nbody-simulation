@@ -10,3 +10,5 @@ Release/
 
 # Simulation outputs
 output/
+
+# Ignore generated simulation files.
