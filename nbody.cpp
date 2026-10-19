@@ -10,66 +10,6 @@
 #include <random>
 #include "vec2d.hpp"
 
-
-/*struct vec2d
-{
-    double x;
-    double y;
-
-    vec2d(double x0 = 0.0, double y0 = 0.0)
-    : x{x0}, y{y0}
-    {
-    }
-
-    vec2d operator+(const vec2d& b) const
-    {
-        return{x + b.x, y + b.y};
-    }
-
-    vec2d operator+(double b) const
-    {
-        return{x + b, y + b};
-    }
-
-    vec2d operator-(const vec2d& b) const
-    {
-        return{x - b.x, y - b.y};
-    }
-
-    vec2d operator*(const vec2d& b) const
-    {
-        return{x*b.x, y*b.y};
-    }
-
-    vec2d operator*(double b) const
-    {
-        return{x*b, y*b};
-    }
-
-    vec2d operator/(const vec2d& b) const
-    {
-        return{x/b.x, y/b.y};
-    }
-
-    vec2d operator/(double scalar) const
-    {
-        return {x / scalar, y / scalar};
-    }
-
-    double squaredLength() const
-    {
-        return x*x + y*y;
-    }
-
-    vec2d& operator+=(const vec2d& b)
-    {
-        x += b.x;
-        y += b.y;
-    
-        return *this;
-    }
-};*/
-
 struct particle2d
 {
     double mass;
