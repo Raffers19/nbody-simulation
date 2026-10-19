@@ -128,4 +128,9 @@ struct vec2d
         return {a / b.x, a / b.y};
     }
 
+    double cross(const vec2d& b) const
+    {
+    return x * b.y - y * b.x;
+    }
+
 };
