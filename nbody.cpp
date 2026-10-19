@@ -9,15 +9,7 @@
 #include <vector>
 #include <random>
 #include "vec2d.hpp"
-
-struct particle2d
-{
-    double mass;
-    vec2d pos;
-    vec2d vel;
-    vec2d acc;
-};
-
+#include "particle.hpp"
 
 double getParticleSquaredDistance(const particle2d& p1, const particle2d& p2)
 {
