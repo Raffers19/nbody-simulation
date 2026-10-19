@@ -8,9 +8,10 @@
 #include <cmath>
 #include <vector>
 #include <random>
+#include "vec2d.hpp"
 
 
-struct vec2d
+/*struct vec2d
 {
     double x;
     double y;
@@ -67,7 +68,7 @@ struct vec2d
     
         return *this;
     }
-};
+};*/
 
 struct particle2d
 {
