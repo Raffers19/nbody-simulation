@@ -32,6 +32,7 @@ if(MSVC)
 endif()
 
 #CTest
+#Gravity test
 enable_testing()
 
 add_executable(test_gravity
@@ -43,4 +44,16 @@ target_link_libraries(test_gravity PRIVATE nbody_physics)
 add_test(
     NAME GravityForce
     COMMAND test_gravity
+)
+
+#Verlet test
+add_executable(test_verlet
+    tests/test_verlet.cpp
+)
+
+target_link_libraries(test_verlet PRIVATE nbody_physics)
+
+add_test(
+    NAME VerletConvergence
+    COMMAND test_verlet
 )
