@@ -30,3 +30,17 @@ if(MSVC)
     target_compile_options(nbody_physics PRIVATE /W4 /EHsc)
     target_compile_options(nbody PRIVATE /W4 /EHsc)
 endif()
+
+#CTest
+enable_testing()
+
+add_executable(test_gravity
+    tests/test_gravity.cpp
+)
+
+target_link_libraries(test_gravity PRIVATE nbody_physics)
+
+add_test(
+    NAME GravityForce
+    COMMAND test_gravity
+)
