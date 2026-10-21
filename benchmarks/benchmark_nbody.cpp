@@ -1,9 +1,9 @@
 
 #include <chrono>
-#include <iostream>
-#include <vector>
-#include <string>
 #include <cmath>
+#include <iostream>
+#include <string>
+#include <vector>
 
 #include "particle.hpp"
 #include "gravity.hpp"
@@ -30,9 +30,9 @@ int main(int argc, char* argv[])
 
     std::vector<particle2d> P(N);
 
-    // Initialize particles on a regular grid
-    const int width = static_cast<int>(std::ceil(std::sqrt(N)));
-    
+    const int width =
+        static_cast<int>(std::ceil(std::sqrt(N)));
+
     for (int i = 0; i < N; ++i)
     {
         P[i].mass = 1.0;
@@ -45,28 +45,58 @@ int main(int argc, char* argv[])
         P[i].vel = {0.0, 0.0};
     }
 
-    // Calculate initial accelerations
     computeAccel(P, G);
 
-    // Start timing
-    auto start = std::chrono::steady_clock::now();
+    // Independent copy for acceleration benchmarking
+    std::vector<particle2d> forceParticles = P;
+
+    using clock = std::chrono::steady_clock;
+
+    // Benchmark computeAccel()
+    double checksum = 0.0;
+
+    auto forceStart = clock::now();
+
+    for (int i = 0; i < steps; ++i)
+    {
+        computeAccel(forceParticles, G);
+        checksum += forceParticles[0].acc.x;
+    }
+
+    auto forceEnd = clock::now();
+
+    std::chrono::duration<double> forceTime =
+        forceEnd - forceStart;
+
+    // Benchmark complete velocity-Verlet steps
+    auto verletStart = clock::now();
 
     for (int i = 0; i < steps; ++i)
     {
         verletStep(P, dt, G);
     }
 
-    // Stop timing
-    auto end = std::chrono::steady_clock::now();
+    auto verletEnd = clock::now();
 
-    std::chrono::duration<double> elapsed = end - start;
+    std::chrono::duration<double> verletTime =
+        verletEnd - verletStart;
 
+    // Report results
     std::cout << "Particles: " << N << '\n';
-    std::cout << "Steps:     " << steps << '\n';
-    std::cout << "Time:      " << elapsed.count()
-              << " seconds\n";
+    std::cout << "Steps: " << steps << '\n';
 
-    // Make the computed result observable
+    std::cout << "Acceleration time: "
+              << forceTime.count() << " seconds\n";
+
+    std::cout << "Verlet time: "
+              << verletTime.count() << " seconds\n";
+
+    std::cout << "Time ratio: "
+              << forceTime.count() / verletTime.count()
+              << '\n';
+
+    std::cout << "Checksum: " << checksum << '\n';
+
     std::cout << "Final position: "
               << P[0].pos.x << ", "
               << P[0].pos.y << '\n';
