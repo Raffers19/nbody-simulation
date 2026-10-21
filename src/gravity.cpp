@@ -25,23 +25,29 @@ vec2d computeForce(const particle2d& p1, const particle2d& p2, const double G)
 
 }
 
+
 void computeAccel(std::vector<particle2d>& P, const double G)
 {
-    for(int j=0; j<P.size(); j++)
+    const std::size_t N = P.size();
+
+    // Precompute inverse masses
+    std::vector<double> invMass(N);
+
+    for (std::size_t i = 0; i < N; ++i)
     {
+        invMass[i] = 1.0 / P[i].mass;
+        P[i].acc = {0.0, 0.0};
+    }
 
-        vec2d full_f;
-
-        for(int i=0; i<P.size(); i++)
+    // Calculate each pair once
+    for (std::size_t i = 0; i < N; ++i)
+    {
+        for (std::size_t j = i + 1; j < N; ++j)
         {
-            if (i != j)
-            {
-                vec2d f = computeForce(P[j], P[i], G);
-                full_f += f;
+            const vec2d F = computeForce(P[i], P[j], G);
 
-            }
-
+            P[i].acc = P[i].acc + F * invMass[i];
+            P[j].acc = P[j].acc - F * invMass[j];
         }
-        P[j].acc = full_f/P[j].mass;
     }
 }
