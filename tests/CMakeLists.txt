@@ -23,8 +23,21 @@ add_test(
     COMMAND test_verlet
 )
 
+# Momentum test
+add_executable(test_momentum test_momentum.cpp)
+
+target_link_libraries(test_momentum
+    PRIVATE nbody_physics
+)
+
+add_test(
+    NAME MomentumConsistency
+    COMMAND test_momentum
+)
+
 # Microsoft compiler warnings
 if(MSVC)
     target_compile_options(test_gravity PRIVATE /W4 /EHsc)
     target_compile_options(test_verlet PRIVATE /W4 /EHsc)
+    target_compile_options(test_momentum PRIVATE /W4 /EHsc)
 endif()
