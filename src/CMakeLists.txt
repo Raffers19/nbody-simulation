@@ -14,7 +14,7 @@ target_include_directories(nbody_physics PUBLIC
 
 # Build the simulation executable
 add_executable(nbody
-    nbody.cpp
+    main.cpp
 )
 
 # Link the simulation to the physics library

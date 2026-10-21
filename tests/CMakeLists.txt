@@ -35,9 +35,22 @@ add_test(
     COMMAND test_momentum
 )
 
+# simulation test
+add_executable(test_simulation test_simulation.cpp)
+
+target_link_libraries(test_simulation
+    PRIVATE nbody_physics
+)
+
+add_test(
+    NAME simulationConsistency
+    COMMAND test_simulation
+)
+
 # Microsoft compiler warnings
 if(MSVC)
     target_compile_options(test_gravity PRIVATE /W4 /EHsc)
     target_compile_options(test_verlet PRIVATE /W4 /EHsc)
     target_compile_options(test_momentum PRIVATE /W4 /EHsc)
+    target_compile_options(test_simulation PRIVATE /W4 /EHsc)
 endif()
