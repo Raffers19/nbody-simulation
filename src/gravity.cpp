@@ -51,3 +51,28 @@ void computeAccel(std::vector<particle2d>& P, const double G)
         }
     }
 }
+
+
+void computeAccelParallel(std::vector<particle2d>& P, const double G)
+{
+    const int N = static_cast<int>(P.size());
+
+    #pragma omp parallel for
+    for(int j=0; j<N; j++)
+    {
+
+        vec2d full_f{0.0, 0.0};
+
+        for(int i=0; i<N; i++)
+        {
+            if (i != j)
+            {
+                vec2d f = computeForce(P[j], P[i], G);
+                full_f += f;
+
+            }
+
+        }
+        P[j].acc = full_f/P[j].mass;
+    }
+}

@@ -51,7 +51,19 @@ int main()
         double dt = init[n].x;
         int step = static_cast<int>(init[n].y);
 
+
+        std::vector<particle2d> P2 = P;
+
         computeAccel(P, G);
+        //std::cout << P[0].acc.x << " " << P[0].acc.y << '\n';
+        //std::cout << P[1].acc.x << " " << P[1].acc.y << '\n';
+        
+        //computeAccelParallel(P2, G);
+
+        //std::cout << P2[0].acc.x << " " << P2[0].acc.y << '\n';
+        //std::cout << P2[1].acc.x << " " << P2[1].acc.y << '\n';
+        //std::cout << '\n';
+
 
         //double E0 = computeEnergy(P, G);
         

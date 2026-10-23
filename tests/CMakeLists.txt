@@ -23,6 +23,18 @@ add_test(
     COMMAND test_verlet
 )
 
+# Parallel Velocity-Verlet convergence test
+add_executable(test_verlet_parallel
+    test_verlet_parallel.cpp
+)
+
+target_link_libraries(test_verlet_parallel PRIVATE nbody_physics)
+
+add_test(
+    NAME VerletConvergenceParallel
+    COMMAND test_verlet_parallel
+)
+
 # Momentum test
 add_executable(test_momentum test_momentum.cpp)
 
@@ -47,10 +59,14 @@ add_test(
     COMMAND test_simulation
 )
 
+
+
+
 # Microsoft compiler warnings
 if(MSVC)
     target_compile_options(test_gravity PRIVATE /W4 /EHsc)
     target_compile_options(test_verlet PRIVATE /W4 /EHsc)
     target_compile_options(test_momentum PRIVATE /W4 /EHsc)
     target_compile_options(test_simulation PRIVATE /W4 /EHsc)
+    target_compile_options(test_verlet_parallel PRIVATE /W4 /EHsc)
 endif()

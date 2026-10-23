@@ -1,4 +1,7 @@
 
+# Find OpenMP
+find_package(OpenMP REQUIRED COMPONENTS CXX)
+
 # Build the reusable physics library
 add_library(nbody_physics STATIC
     gravity.cpp
@@ -11,6 +14,9 @@ add_library(nbody_physics STATIC
 target_include_directories(nbody_physics PUBLIC
     ${PROJECT_SOURCE_DIR}/include
 )
+
+# Enable OpenMP for the physics library
+target_link_libraries(nbody_physics PUBLIC OpenMP::OpenMP_CXX)
 
 # Build the simulation executable
 add_executable(nbody

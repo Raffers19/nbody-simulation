@@ -9,6 +9,8 @@
 #include "gravity.hpp"
 #include "verlet.hpp"
 
+
+
 int main(int argc, char* argv[])
 {
     int N = 400;
@@ -45,14 +47,41 @@ int main(int argc, char* argv[])
         P[i].vel = {0.0, 0.0};
     }
 
+    using clock = std::chrono::steady_clock;
+
+    //Benchmark Parallel check
+
+    std::vector<particle2d> P1 = P;
+    std::vector<particle2d> P2 = P;
+    computeAccel(P1, G);
+    computeAccelParallel(P2, G);
     computeAccel(P, G);
+
+    auto seriesStart = clock::now();
+
+    for (int i = 0; i < steps; ++i)
+    {
+        computeAccel(P1, G);
+    }
+
+    auto seriesEnd = clock::now();
+    std::chrono::duration<double> seriesTime = seriesEnd - seriesStart;
+
+    auto parallelStart = clock::now();
+
+    for (int i = 0; i < steps; ++i)
+    {
+        computeAccelParallel(P2, G);
+    }
+
+    auto parallelEnd = clock::now();
+    std::chrono::duration<double> parallelTime = parallelEnd - parallelStart;
 
     // Independent copy for acceleration benchmarking
     std::vector<particle2d> forceParticles = P;
 
-    using clock = std::chrono::steady_clock;
-
     // Benchmark computeAccel()
+
     double checksum = 0.0;
 
     auto forceStart = clock::now();
@@ -100,6 +129,12 @@ int main(int argc, char* argv[])
     std::cout << "Final position: "
               << P[0].pos.x << ", "
               << P[0].pos.y << '\n';
+
+    std::cout << "series time: " << seriesTime.count() << '\n';
+    std::cout << "parallel time: " << parallelTime.count() << '\n';
+    std::cout << "Speedup: "
+              << seriesTime.count() / parallelTime.count()
+              << "x\n";
 
     return 0;
 }
